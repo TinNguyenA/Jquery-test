@@ -1,0 +1,74 @@
+﻿<UserControl x:Class="WPF.PSE.Utility.UserControls.ServerListObject"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:vm="clr-namespace:WPF.PSE.ViewModelLayer;assembly=WPF.PSE.ViewModelLayer"
+             mc:Ignorable="d"
+             d:DesignHeight="800"
+             d:DesignWidth="1050"
+    Style="{StaticResource screenStyle}">
+    <UserControl.Resources>
+        <vm:ServerListObjectViewModel x:Key="viewModel" />
+   </UserControl.Resources>
+    <Border Style="{StaticResource screenBorder}" RenderTransformOrigin="0.509,0.36" Margin="5,5,5,5">
+        <Grid DataContext="{Binding Source = {StaticResource viewModel}}" >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1" MinWidth="1" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            
+            <Border Grid.Row="0"
+                    Grid.Column="1"
+                    Grid.ColumnSpan="2"
+                    Margin="4,4,4,6"
+                    CornerRadius ="8"
+                    
+                    Effect="{StaticResource buttonShadow}">
+                <Border.Background>
+                    <LinearGradientBrush EndPoint="0.5,1"
+                                         StartPoint="0.5,0">
+                        <GradientStop Color="Gray"
+                                      Offset="0" />
+                        <GradientStop Color="DarkGray"
+                                      Offset="1" />
+                    </LinearGradientBrush>
+                </Border.Background>
+                <StackPanel Orientation="Horizontal">
+                    <Button  Margin="4,4,4,10" Grid.Row="0" Grid.Column="0"
+                             Style="{StaticResource ImageButtonStyle}"
+                             Click="Image_Button_Click">
+                        <Image Source="pack://application:,,,/WPF.PSE.Common;Component/Images/Search_Black.png"/>
+                    </Button>
+                    <Label FontSize="18"  Margin="20,20,20,20" 
+                       Content="Please select a server in " />
+                    <Label FontSize="18" Foreground="BlanchedAlmond" MaxWidth="880" Margin="-30,20,10,5" x:Name="lbServerSelect"
+                       Content="AT environment" />
+                    <ComboBox x:Name="comboBoxServer" Height="30" MinWidth="130" IsEditable="True"
+                              Style="{StaticResource mComboBox}"
+                          ToolTip="Server Name"/>
+                  
+                    <Button ToolTip="Load Template"  Name="AddTabControl" IsDefault="True" Style="{StaticResource toolbarButton}" MinWidth="120" Click="AddTabControl_OnClick"  >
+                        <StackPanel Orientation="Horizontal" Style="{StaticResource toolbarButtonStackPanel}" >
+                            <Image Source="pack://application:,,,/WPF.PSE.Common;component/Images/link.png" IsEnabled="{Binding EnableConnect}"
+                                   Style="{StaticResource toolbarImage}" />
+                            <TextBlock Text="Connect" />
+                        </StackPanel>
+                    </Button>
+                </StackPanel>
+            </Border>
+            <StackPanel
+                Margin="4,3,4,7"
+                Grid.Row="1" 
+                        Grid.Column="0"
+                        Grid.ColumnSpan="3"
+                        Orientation="Horizontal"
+                        Name="contentArea">
+            </StackPanel>
+        </Grid>
+    </Border>
+</UserControl>

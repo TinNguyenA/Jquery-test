@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Databases>
+  <Database>
+    <Id>1</Id>
+    <Name>CODIS</Name>
+    <HostName>127.0.0.0</HostName>
+    <Environment>Local Machine</Environment>
+  </Database>  
+</Databases>

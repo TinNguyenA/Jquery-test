@@ -1,0 +1,187 @@
+﻿<UserControl xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
+             xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+             xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:vm="clr-namespace:WPF.PSE.ViewModelLayer;assembly=WPF.PSE.ViewModelLayer"
+             xmlns:dd="clr-namespace:WPF.PSE.Utility.UserControls"
+             xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm" x:Class="WPF.PSE.Utility.UserControls.SQLTracking"
+             mc:Ignorable="d"
+             d:DesignHeight="450"
+             d:DesignWidth="850"
+             >
+    <UserControl.Resources>
+        <vm:SQLTrackingViewModel x:Key="viewModel" />
+        <Style TargetType="{x:Type Button}" x:Key="ImageButtonStyle">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <ContentPresenter/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
+    <UserControl.Style>
+        <StaticResource ResourceKey="screenStyle"/>
+    </UserControl.Style>
+    <Border Style="{StaticResource screenBorder}" RenderTransformOrigin="0.509,0.36" Margin="5,5,5,5">
+        <DockPanel Margin="10" >
+            <WrapPanel Name="Top1" HorizontalAlignment="Stretch" DockPanel.Dock="Top" Margin="0,0,0,10" Background="#DCCCCC">
+                <TextBlock  Text=" Select a Database: " Height="30" Padding="0,5,0,0"
+                               x:Name="lbValidateResult" Background="Aquamarine"
+                               HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                <ComboBox x:Name="CbxDatabaseName" Height="30" 
+                          Margin="5,1,5,1"
+                          Style="{StaticResource mComboBox}"                           
+                         ToolTip="Command"
+                          Width="185"/>
+                <!--<Button ToolTip="Backup Selected Database" x:Name="btnGetLatestDb" IsDefault="True" Style="{StaticResource toolbarButton}"
+                        Height="30" Click="BtnLatestDb_Click"  >
+                    <StackPanel Orientation="Horizontal" Style="{StaticResource toolbarButtonStackPanel}">
+                        <Image Source="pack://application:,,,/WPF.PSE.Common;component/Images/"
+                                   Style="{StaticResource toolbarImage}" />
+                        <TextBlock Text="Latest DB V.12" />
+                    </StackPanel>
+                </Button>-->                
+                <Button ToolTip="Backup Selected Database" x:Name="btnNewTracking" IsDefault="True"  Style="{StaticResource toolbarButton}"
+                        Height="30" Click="BtnMakeCopyDb_Click"  >
+                    <StackPanel Orientation="Horizontal" Style="{StaticResource toolbarButtonStackPanel}">
+                        <Image Source="pack://application:,,,/WPF.PSE.Common;component/Images/DBAdded.png"
+                                   Style="{StaticResource toolbarImage}" />
+                        <TextBlock Text="Create Baseline" />
+                    </StackPanel>
+                </Button>
+                <dx:DropDownButton Margin="10,0,0,0" Width="180" Height="30" Content="Restore local">
+                    <StackPanel>
+                        <Button Content="Restore all tables" Click="BtnRestoreTables_Click"/>
+                        <Button Content="Restore from Baseline"  Click="BtnLatestDb_Click"/>
+                        <Button Content="Latest DB V.12"  Click="BtnLatestDb_Click"/>                       
+                    </StackPanel>
+                </dx:DropDownButton>
+                <!--<Button ToolTip="Restore Selected Database from backup" x:Name="btnRestoreDB" IsDefault="True"  Style="{StaticResource toolbarButton}"
+                        Height="30" Click="BtnRestoreDB_Click"  >
+                    <StackPanel Orientation="Horizontal" Style="{StaticResource toolbarButtonStackPanel}">
+                        <Image Source="pack://application:,,,/WPF.PSE.Common;component/Images/Refresh.png"
+                                   Style="{StaticResource toolbarImage}" />
+                        <TextBlock Text="Restore from Baseline" />
+                    </StackPanel>
+                </Button>-->
+                <dx:DropDownButton Margin="10,0,0,0" Width="180" Height="30" Content="Show Update Status" >
+                    <StackPanel>
+                        <Button Content="Last 1 minutes"  Click="ViewChanges_OnClick" MouseDown="SetMouseWait"/>
+                        <Button Content="Last 2 minutes" Click="ViewChanges_OnClick"/>
+                        <Button Content="Last 5 minutes" Click="ViewChanges_OnClick"/>
+                        <Button Content="Last 10 minutes" Click="ViewChanges_OnClick"/>
+                        <Button Content="Last 60 minutes" Click="ViewChanges_OnClick"/>
+                        <Button Content="All Events" Click="ViewChanges_OnClick"/>
+                        <Button Content="From Start Timmer" Name="startTimerCmd" Click="ViewChanges_OnClick"/>
+                    </StackPanel>
+                </dx:DropDownButton>
+                <Button Content="Start Timmer" Name="btTimer" Click="StartNow_OnClick"/>
+                <!--<Button ToolTip="Begin tracking new update" x:Name="btnReset" IsDefault="True"  Margin="10,0,0,0"
+                        Style="{StaticResource toolbarButton}"  Click="btnReset_Click" IsEnabled="True"  >
+                    <StackPanel Orientation="Horizontal" Style="{StaticResource toolbarButtonStackPanel}">
+                        <Image Source="pack://application:,,,/WPF.PSE.Common;component/Images/Search_Black.png"
+                                   Style="{StaticResource toolbarImage}" />
+                        <TextBlock Text="Begin New Tracking" />
+                    </StackPanel>
+                </Button>
+                <Button ToolTip="Get Data Table updated"  x:Name="AddTabControl" IsDefault="True" Style="{StaticResource toolbarButton}"
+                            HorizontalAlignment="Left"  Click="ViewChanges_OnClick" Margin="10,0,0,0">
+                    <StackPanel Orientation="Horizontal" Style="{StaticResource toolbarButtonStackPanel}" >
+                        <Image Source="pack://application:,,,/WPF.PSE.Common;component/Images/Validate.png" IsEnabled="{Binding EnableConnect}"
+                                   Style="{StaticResource toolbarImage}" />
+                        <TextBlock Text="Show Update Status" />
+                    </StackPanel>
+                </Button>-->
+            </WrapPanel>
+            <WrapPanel Name="Top2" HorizontalAlignment="Stretch" DockPanel.Dock="Top" Margin="0,0,0,10" Background="#DCCCCC">
+                <TextBlock  Text=" Select sql text filter: " Height="30" Padding="0,5,0,0"
+                               x:Name="lbTxtFilter" Background="Aquamarine"
+                               HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                <ComboBox x:Name="cbxFilterSqltxt"  x:Uid="HistSynID"
+                              Height="30" Padding="0,5,0,0" MinWidth="360" MaxWidth="300" IsEditable="True"
+                              HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="1"
+                            Grid.Row="2" AutomationProperties.IsRequiredForForm="True" Text="">
+                    <ComboBoxItem>not like '%Extent1%'</ComboBoxItem>
+                    <ComboBoxItem>like '%Delete%'</ComboBoxItem>
+                    <ComboBoxItem>like '%Update%'</ComboBoxItem>
+                    <ComboBoxItem>like '%Insert%'</ComboBoxItem>
+                    <ComboBoxItem>like '%Select%'</ComboBoxItem>
+                   
+                </ComboBox>
+                <Button ToolTip="Get last Query" x:Name="btnLastQuery" IsDefault="True"  Style="{StaticResource toolbarButton}"
+                        Height="30" Width="230" Click="BtnGetLastQuery_Click"  >
+                    <StackPanel Orientation="Horizontal" Style="{StaticResource toolbarButtonStackPanel}">
+                        <Image Source="pack://application:,,,/WPF.PSE.Common;component/Images/Validate.png"
+                                   Style="{StaticResource toolbarImage}" />
+                        <TextBlock Text="Executed SQL From Start Timmer" />
+                    </StackPanel>
+                </Button>              
+            </WrapPanel>
+            <WrapPanel HorizontalAlignment="Stretch" DockPanel.Dock="Top" Margin="0,0,0,10" x:Name="BrowsersDisplay" Visibility="Visible">
+                <Grid Background="#DCCCCC">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="180" />
+                        <ColumnDefinition Width="200" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="0"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+
+                    <dxg:GridControl AutoGenerateColumns="AddNew"  x:Name="ResultGrid" EnableSmartColumnsGeneration="True" MinWidth="850" 
+                         HorizontalAlignment="Left" Margin="0,0,0,0" Grid.Row="1" Grid.ColumnSpan="3" VerticalAlignment="Top"
+                         Height="Auto" Loaded ="SetGridInitialLayout"  >
+                        <!--ItemsSource="{Binding Data, Source={StaticResource UnboundDataSource}}"-->
+
+                        <dxg:GridControl.View>
+                            <dxg:TableView AllowPerPixelScrolling="True" ShowTotalSummary="True"  Name="tableView3" 
+                               AlternateRowBackground="AliceBlue" AllowEditing="False"/>
+                        </dxg:GridControl.View>
+                        <dxg:GridColumn Header="Date Time" FieldName="TimeStamp" Width="170" CellToolTipBinding="{Binding}" AllowEditing="False" >
+                            <!--<dxg:GridColumn.EditSettings>
+                                <dxe:DateEditSettings Mask="G"  MaskUseAsDisplayFormat="True" VerticalContentAlignment="Top" TextWrapping="Wrap"/>
+                            </dxg:GridColumn.EditSettings>-->
+                        </dxg:GridColumn>
+
+                        <dxg:GridColumn Header="Changed Status" FieldName="Result" Width="*" AllowEditing="false" x:Name="msgColumnResult" >
+                        </dxg:GridColumn>
+
+                        <dxg:GridColumn Header="Tables Modified" FieldName="TablesUpdated" Width="250" AllowEditing="True" x:Name="msgColumn" >
+                            <dxg:GridColumn.EditSettings>
+                                <dxe:HyperlinkEditSettings AllowAutoNavigate="True" RequestNavigation="ViewChangesDetails_OnClick"  />
+                            </dxg:GridColumn.EditSettings>
+                        </dxg:GridColumn>
+
+                        <dxg:GridColumn Header="Find In CODIS Project" FieldName="CodeFiles" Width="150" AllowEditing="True" x:Name="FilesColumn" >
+
+                            <dxg:GridColumn.EditSettings>
+                                <dxe:ComboBoxEditSettings ItemsSource="{dxe:EnumItemsSource EnumType=dd:FindExt}" IsTextEditable="False" >
+
+                                </dxe:ComboBoxEditSettings>
+                            </dxg:GridColumn.EditSettings>
+                        </dxg:GridColumn>
+
+                        <dxg:GridColumn Header="" FieldName="SearchText" Width="50" AllowGrouping="False" Visible="False"
+                                AllowSorting="False" AllowAutoFilter="False" CellToolTipBinding="{Binding}">
+                            <dxg:GridColumn.EditSettings>
+                                <dxe:ImageEditSettings MaxWidth="18" VerticalContentAlignment="Stretch" />
+                            </dxg:GridColumn.EditSettings>
+                        </dxg:GridColumn>
+
+                    </dxg:GridControl>
+                </Grid>
+               
+            </WrapPanel>
+        </DockPanel>
+    </Border>
+
+
+</UserControl>

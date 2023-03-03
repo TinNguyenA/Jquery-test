@@ -1,0 +1,5 @@
+Windows Registry Editor Version 5.00
+			[HKEY_LOCAL_MACHINE\SOFTWARE\CODIS]
+			"Version"=".0.0.0"
+			"CurrentVersion"=".0.0.0"
+		

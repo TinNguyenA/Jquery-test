@@ -1,0 +1,193 @@
+﻿<UserControl 
+             xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
+             xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:vm="clr-namespace:WPF.PSE.ViewModelLayer;assembly=WPF.PSE.ViewModelLayer"
+             xmlns:dd="clr-namespace:WPF.PSE.Utility.UserControls"
+             xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm" xmlns:System="clr-namespace:System;assembly=mscorlib" x:Class="WPF.PSE.Utility.UserControls.TextSearch"
+             mc:Ignorable="d"
+             d:DesignHeight="450"
+             d:DesignWidth="850"
+             >
+    <UserControl.Resources>
+        <vm:SQLTrackingViewModel x:Key="viewModel" />
+        <Style TargetType="{x:Type Button}" x:Key="ImageButtonStyle">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <ContentPresenter/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
+    <UserControl.Style>
+        <StaticResource ResourceKey="screenStyle"/>
+    </UserControl.Style>
+    <Border Style="{StaticResource screenBorder}" RenderTransformOrigin="0.509,0.36" Margin="5,5,5,5">
+        <DockPanel Margin="10" >
+            <WrapPanel HorizontalAlignment="Stretch" DockPanel.Dock="Top" Margin="0,0,0,10" Background="#DCCCCC">
+                <Grid Background="#DCCCCC">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="150" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="155" />
+                        <ColumnDefinition Width="140" />
+                    </Grid.ColumnDefinitions>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="30"/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock  Text=" Select File Location/Ext: " Height="30" Padding="0,5,0,0"
+                               x:Name="lbValidateResult" Background="Aquamarine"
+                               HorizontalAlignment="Left" VerticalAlignment="Center"
+                            Grid.Column="0"
+                            Grid.Row="0"
+                            />
+
+                    <ComboBox x:Name="txtLocation" Height="30" Padding="0,5,0,0" MinWidth="505" MaxWidth="1800" IsEditable="True"
+                              HorizontalAlignment="Left" VerticalAlignment="Center"         
+                            Grid.Column="1"
+                            Grid.Row="0" AutomationProperties.IsRequiredForForm="True"
+                            >
+                        <ComboBoxItem>C:\Proj\R\CODIS\trunk\Source\Product</ComboBoxItem>
+                        <ComboBoxItem>C:\Proj\R\CODIS\CODIS_11.0\Source\Product</ComboBoxItem>
+                        <ComboBoxItem>C:\Proj\R\CODIS\CODIS_9.0\Source\Product</ComboBoxItem>
+                        <ComboBoxItem>C:\CODIS</ComboBoxItem>
+                        <ComboBoxItem IsSelected="True">C:\Proj\R\CODIS\Trunk\Source\Product\CODIS.Tests.AcceptanceTests</ComboBoxItem>
+                    </ComboBox>
+                    <!--<Border Width="500" Height="100" BorderBrush="Black" BorderThickness="1"  Grid.Column="1" Grid.Row="0" Margin="10,30,0,0" Visibility="Collapsed" >
+                        <ScrollViewer VerticalScrollBarVisibility="Auto"  >
+                            <StackPanel Name="resultStack"></StackPanel >
+                        </ScrollViewer>
+                    </Border>-->
+                    <ComboBox x:Name="CbxExt" Height="30" Margin="10,0,0,0"  IsEditable="true"                  
+                          Style="{StaticResource mComboBox}"                           
+                         ToolTip="File Extension"
+                          Width="145"
+                         Grid.Column="2"
+                            Grid.Row="0"
+                            >
+                    </ComboBox>
+                    <CheckBox x:Name="ChkCase" Height="30" Margin="10,0,0,0"           
+                         ToolTip="File Extension"
+                          Width="145"
+                         Grid.Column="3"
+                            Grid.Row="0"
+                            > Case Sensitive
+                    </CheckBox>
+                    <Label  Height="30" Padding="0,5,0,0"
+                               x:Name="LabelSearchText" Background="Aquamarine"
+                               HorizontalAlignment="Left" VerticalAlignment="Center"
+                            Grid.Column="0"
+                            Grid.Row="1" Content="Text to Search"/>
+                    <ComboBox x:Name="TextBlockSearchText"  Height="30" Padding="0,5,0,0" MinWidth="505" MaxWidth="1800" IsEditable="true"
+                              HorizontalAlignment="Left" VerticalAlignment="Center"  
+                            Grid.Column="1"
+                            Grid.Row="1" AutomationProperties.IsRequiredForForm="True"
+                            >
+                        <ComboBoxItem>Then.*RHN</ComboBoxItem>
+                        <ComboBoxItem>Version=13.0.2000.0</ComboBoxItem>
+                    </ComboBox>
+                    <Button ToolTip="Search now" x:Name="btnSearch" IsDefault="True"  Margin="10,0,0,0"
+                        Style="{StaticResource toolbarButton}"  Click="btnFind_Click" IsEnabled="True" 
+                            Grid.Column="2"
+                            Grid.Row="1"  
+                            >
+                        <StackPanel Orientation="Horizontal" Style="{StaticResource toolbarButtonStackPanel}">
+                            <Image Source="pack://application:,,,/WPF.PSE.Common;component/Images/Search_Black.png"
+                                   Style="{StaticResource toolbarImage}" />
+                            <TextBlock Text="Find" />
+                        </StackPanel>
+
+                    </Button>
+                    <CheckBox x:Name="ChkFixString" Height="30" Margin="10,0,0,0"  Checked="ChkFixString_Click"  Unchecked="ChkFixString_Click1"  
+                         ToolTip="Fix Sentence for search"
+                          Width="145"                              
+                         Grid.Column="3"
+                            Grid.Row="1"
+                            >Use RegularExp
+                    </CheckBox>
+                    <Label  Height="30" Padding="0,5,0,0" 
+                               x:Name="LabelReplaceText" Background="Aquamarine"
+                               HorizontalAlignment="Left" VerticalAlignment="Center"
+                             Grid.Column="0"
+                            Grid.Row="2" Content="Text to Replace"/>
+
+                    <ComboBox Height="30" Padding="0,5,0,0" MinWidth="505" MaxWidth="1800" IsEditable="true"
+                               x:Name="TextBlockReplaceText"  
+                               HorizontalAlignment="Left" VerticalAlignment="Center"
+                             Grid.Column="1"
+                            Grid.Row="2">
+                        <ComboBoxItem>Version=13.0.4000.0</ComboBoxItem>
+                    </ComboBox>
+                    <Button ToolTip="Replace text" x:Name="btnSearchAndReplace" IsDefault="True"  Margin="10,0,0,0"
+                        Style="{StaticResource toolbarButton}"  Click="btnReplace_Click" IsEnabled="True"   Grid.Column="2"
+                            Grid.Row="2">
+                        <StackPanel Orientation="Horizontal" Style="{StaticResource toolbarButtonStackPanel}">
+                            <Image Source="pack://application:,,,/WPF.PSE.Common;component/Images/Search_Black.png"
+                                   Style="{StaticResource toolbarImage}" />
+                            <TextBlock Text="Find and Replace" />
+                        </StackPanel>
+                    </Button>
+                </Grid>
+            </WrapPanel>
+            <WrapPanel HorizontalAlignment="Stretch" DockPanel.Dock="Top" Margin="0,0,0,10" x:Name="BrowsersDisplay" Visibility="Visible">
+                <Grid Background="#DCCCCC">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="0"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <dxg:GridControl AutoGenerateColumns="AddNew"  x:Name="ResultGrid" EnableSmartColumnsGeneration="True" MinWidth="850" 
+                         HorizontalAlignment="Left" Margin="0,0,0,0" Grid.Row="1" Grid.ColumnSpan="3" VerticalAlignment="Top"
+                         Height="Auto" Loaded ="SetGridInitialLayout"  >
+                        <!--ItemsSource="{Binding Data, Source={StaticResource UnboundDataSource}}"-->
+
+                        <dxg:GridControl.View>
+                            <dxg:TableView AllowPerPixelScrolling="True" ShowTotalSummary="True"  Name="tableViewSearchResult" 
+                               AlternateRowBackground="AliceBlue" AllowEditing="False"/>
+                        </dxg:GridControl.View>
+
+                        <dxg:GridColumn Header="Line#" FieldName="colLineNumber" Width="50" AllowEditing="false" x:Name="colLine" >
+                        </dxg:GridColumn>
+                        <dxg:GridColumn Header="Line" FieldName="colDetails" Width="*" AllowEditing="True" x:Name="colLineDetails" >                           
+                        </dxg:GridColumn>
+                        <dxg:GridColumn Header="File Name" FieldName="colFileName" Width="150" AllowEditing="True" x:Name="colFilname" >
+                            <dxg:GridColumn.EditSettings>
+                                <dxe:HyperlinkEditSettings AllowAutoNavigate="True" RequestNavigation="copyText_OnClick" />
+                            </dxg:GridColumn.EditSettings>
+                        </dxg:GridColumn>
+
+                        <dxg:GridColumn Header="Location" FieldName="colLocation" Width="300" AllowEditing="True" x:Name="colLocation" >
+                            <dxg:GridColumn.EditSettings>
+                                <dxe:HyperlinkEditSettings AllowAutoNavigate="True" RequestNavigation="copyText_OnClickWithOpenEditor" />
+                            </dxg:GridColumn.EditSettings>
+                        </dxg:GridColumn>
+
+                        <dxg:GridColumn Header="" FieldName="SearchText" Width="50" AllowGrouping="False" Visible="False"
+                                AllowSorting="False" AllowAutoFilter="False" CellToolTipBinding="{Binding}">
+                            <dxg:GridColumn.EditSettings>
+                                <dxe:ImageEditSettings MaxWidth="18" VerticalContentAlignment="Stretch" />
+                            </dxg:GridColumn.EditSettings>
+                        </dxg:GridColumn>
+
+                    </dxg:GridControl>
+                </Grid>
+
+
+            </WrapPanel>
+        </DockPanel>
+    </Border>
+
+
+</UserControl>

@@ -1,0 +1,116 @@
+﻿<UserControl x:Class="WPF.PSE.Utility.UserControls.CreateObjectFromCMF"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:vm="clr-namespace:WPF.PSE.ViewModelLayer;assembly=WPF.PSE.ViewModelLayer"
+             mc:Ignorable="d"
+             d:DesignHeight="450"
+             d:DesignWidth="800"
+             Style="{StaticResource screenStyle}">
+    <UserControl.Resources>
+        <vm:ServerListObjectViewModel x:Key="viewModel" />
+        <Style TargetType="{x:Type Button}" x:Key="ImageButtonStyle">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <ContentPresenter/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
+
+
+    <Border Style="{StaticResource screenBorder}" RenderTransformOrigin="0.509,0.36" Margin="5,5,5,5">
+        <Grid DataContext="{Binding Source = {StaticResource viewModel}}" >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" MinWidth="226" />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Button  Margin="4,4,4,10" Grid.Row="0" Grid.Column="0"
+                             Style="{StaticResource ImageButtonStyle}"
+                             >
+                <Image Source="pack://application:,,,/WPF.PSE.Common;Component/Images/Envelope_Black.png"/>
+            </Button>
+            <Border Grid.Row="0"
+                    Grid.Column="1"
+                    Grid.ColumnSpan="2"
+                    Margin="4,4,4,6"
+                    CornerRadius ="8"
+                    
+                    Effect="{StaticResource buttonShadow}">
+                <Border.Background>
+                    <LinearGradientBrush EndPoint="0.5,1"
+                                         StartPoint="0.5,0">
+                        <GradientStop Color="Gray"
+                                      Offset="0" />
+                        <GradientStop Color="DarkGray"
+                                      Offset="1" />
+                    </LinearGradientBrush>
+                </Border.Background>
+                <StackPanel
+                            Orientation="Horizontal">
+                    <Label FontSize="18"  Margin="20,20,20,20" x:Name="lbServerSelect"
+                       Content="Code Generator using XML/XSD as source" />
+                    <Button Width="100" Height="30" Name="btnOpenXMLFile" Click="btnOpenFile_Click1">Open XML file</Button>
+                    <Button Width="100" Height="30" Style="{StaticResource submitButton}" Name="btnOpenXSDFile" Click="btnOpenFile_Click2">Open XSD file</Button>
+                </StackPanel>
+            </Border>
+            <StackPanel
+                Margin="4,3,4,7"
+                Grid.Row="1" 
+                        Grid.Column="0"
+                        Grid.ColumnSpan="3"                
+                        Orientation="Horizontal"
+                        HorizontalAlignment="Center"
+                        Name="contentArea">
+                <Grid ShowGridLines="False" HorizontalAlignment="Center">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="200"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+
+                    <Label Content="NameSpace" Grid.Column="0" Grid.Row="0" FontWeight="Bold"></Label>
+                    <Label Content="Location for XML" Grid.Column="0" Grid.Row="1"></Label>
+                    <Label Content="Location for XSD" Grid.Column="0" Grid.Row="2"></Label>
+                    <Label Content="Output Code Location" Grid.Column="0" Grid.Row="3" FontWeight="Bold"></Label>
+
+                    <TextBox HorizontalAlignment="Stretch" Grid.Column="1" Name="txtNameSpace" Margin="3" />
+                    <TextBox HorizontalAlignment="Stretch"  Grid.Column="1" Name="txtXMLLocation" Grid.Row="1" Margin="3" />
+                    <TextBox Width="313" Name="txtXSDLocation" Grid.Column="1" Grid.Row="2" Margin="3" HorizontalAlignment="Stretch"/>
+                    <TextBox Width="313" Name="txtOutputLocation" Grid.Column="1" Grid.Row="3" Margin="3" HorizontalAlignment="Stretch"/>
+
+                    <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="4" 
+                    HorizontalAlignment="Center">
+                        <Button Style="{StaticResource submitButton}" Content="Generate" Click="btnGenerate_Click" Grid.Column="1" Grid.Row="5" Margin="3" />
+                        <Button Style="{StaticResource submitButton}" Content="Clear" Click="btnClear_Click" Grid.Column="1" Grid.Row="5"  HorizontalAlignment="Right" Margin="3"></Button>
+                        <Button IsDefault="True" Style="{StaticResource toolbarButton}">
+                            <StackPanel Orientation="Horizontal" Style="{StaticResource toolbarButtonStackPanel}">
+                                  <Image Source="pack://application:,,,/WPF.PSE.Common;component/Images/Save_Black.png"
+                                   Style="{StaticResource toolbarImage}" />
+                                  <TextBlock Text="Save" />
+                            </StackPanel>
+                        </Button>
+                    </StackPanel>
+                    <TextBox Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="2" >Note:</TextBox>
+                </Grid>
+            </StackPanel>
+        </Grid>
+    </Border>
+
+
+</UserControl>

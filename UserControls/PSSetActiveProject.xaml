@@ -1,0 +1,436 @@
+﻿<UserControl 
+             xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
+             xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:vm="clr-namespace:WPF.PSE.ViewModelLayer;assembly=WPF.PSE.ViewModelLayer"
+             xmlns:dd="clr-namespace:WPF.PSE.Utility.UserControls"
+             xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm" xmlns:System="clr-namespace:System;assembly=mscorlib" x:Class="WPF.PSE.Utility.UserControls.PSSetActiveProject"
+             mc:Ignorable="d"
+             d:DesignHeight="540"
+             d:DesignWidth="1000">
+    <UserControl.Resources>
+        <vm:SQLTrackingViewModel x:Key="viewModel" />
+        <Style TargetType="{x:Type Button}" x:Key="ImageButtonStyle">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <ContentPresenter/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
+    <UserControl.Style>
+        <StaticResource ResourceKey="screenStyle"/>
+    </UserControl.Style>
+
+    <Border Style="{StaticResource screenBorder}" Margin="5,5,5,5" >
+        <DockPanel Margin="10" >
+            <WrapPanel HorizontalAlignment="Stretch" DockPanel.Dock="Top" Margin="0,0,0,10"  Width="Auto" Background="#9F9C81">
+                <Grid MinWidth="950">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="150" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="160" />
+                        <ColumnDefinition Width="155" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="100"/>
+                        <RowDefinition Height="15"/>
+                        <RowDefinition Height="35"/>
+                        <RowDefinition Height="35"/>
+                        <RowDefinition Height="35"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <Border Grid.Row="0"  
+                        Grid.ColumnSpan="4"
+                        Margin="20,4,20,4"
+                        CornerRadius ="10" HorizontalAlignment="Center" MinWidth="850"
+                        Effect="{StaticResource buttonShadow}">
+                        <Border.Background>
+                            <LinearGradientBrush EndPoint="0.5,1"
+                                         StartPoint="0.5,0">
+                                <GradientStop Color="Gray"
+                                      Offset="0" />
+                                <GradientStop Color="DarkGray"
+                                      Offset="1" />
+                            </LinearGradientBrush>
+                        </Border.Background>
+                        <StackPanel Orientation="Horizontal">
+                            <Image Grid.Row="0"
+                   Grid.Column="0"
+                   Margin="8,10,14,10"
+                    Effect="{StaticResource buttonShadow}"
+                   Source="pack://application:,,,/WPF.PSE.Common;Component/Images/Setting_48.png"/>
+
+                            <TextBlock FontSize="20" Padding="18" 
+                       Style="{StaticResource inverseLabelTextBlock}" MinWidth="690" TextWrapping="Wrap"
+                        Height="90"  >
+                              Switch CODIS Versions for use in Visual Studio <LineBreak/>
+                              Install the latest CODIS databases from the Artifactory
+                            </TextBlock>
+                        </StackPanel>
+
+                    </Border>
+
+                    <TextBlock  Text=" Supporting Branch" Height="30" Padding="0,5,0,0"
+                               x:Name="lbValidateResult" FontWeight="Bold"
+                               HorizontalAlignment="Left" VerticalAlignment="Center"
+                            Grid.Column="0"
+                            Grid.Row="2" />
+
+                    <ComboBox x:Name="txtBranchName" Height="30" Padding="0,5,0,0" MinWidth="100" MaxWidth="200" IsEditable="False" 
+                              SelectionChanged="PathUpdate"
+                              HorizontalAlignment="Left" VerticalAlignment="Center"         
+                            Grid.Column="1"
+                            Grid.Row="2" AutomationProperties.IsRequiredForForm="True">
+                    </ComboBox>
+
+                    <Button x:Name="btCreateDirLink" Height="30" Margin="10,0,0,0" Click="CreateDirLink"  IsEnabled="False"          
+                          Style="{StaticResource toolbarButton}"                           
+                         ToolTip="Configure the environment"
+                           Width="150"
+                         Grid.Column="2"
+                            Grid.Row="2">
+                        <StackPanel Orientation="Horizontal" Style="{StaticResource toolbarButtonStackPanel}">
+                            <Image Source="pack://application:,,,/WPF.PSE.Common;component/Images/link.png"
+                                   Style="{StaticResource toolbarImage}" />
+                            <TextBlock Text="Setup Environment" />
+                        </StackPanel>
+                    </Button>
+                    <Button ToolTip="Launch Local CODIS" x:Name="btnLaunchCd" IsDefault="True"  Margin="3,0,0,0" Width="145"
+                        Style="{StaticResource toolbarButton}" Click="btnLaunchCd_Click" IsEnabled="True" Grid.Column="3"
+                            Grid.Row="2">
+                        <StackPanel Orientation="Horizontal" Style="{StaticResource toolbarButtonStackPanel}">
+                            <Image Source="pack://application:,,,/WPF.PSE.Common;component/Images/Cd.png"
+                                   Style="{StaticResource toolbarImage}" />
+                            <TextBlock Text="CODIS" />
+                        </StackPanel>
+                    </Button>
+                    <Button ToolTip="Launch Local SQL Server" x:Name="btnLaunchSQLServer" IsDefault="True"  Margin="3,0,0,0" Width="145"
+                        Style="{StaticResource toolbarButton}" Click="btnLaunchSQLServer_Click" IsEnabled="True" Grid.Column="3"
+                            Grid.Row="3">
+                        <StackPanel Orientation="Horizontal" Style="{StaticResource toolbarButtonStackPanel}">
+                            <Image Source="pack://application:,,,/WPF.PSE.Common;component/Images/SQL.png"
+                                   Style="{StaticResource toolbarImage}" />
+                            <TextBlock Text="SQL Server" />
+                        </StackPanel>
+                    </Button>
+                    <Label  Height="30" Padding="0,5,0,0"
+                               x:Name="LabelSearchText" FontWeight="Bold"
+                               HorizontalAlignment="Left" VerticalAlignment="Center"
+                            Grid.Column="0"
+                            Grid.Row="3" Content="Supporting DB Version"/>
+                    <ComboBox x:Name="TextCodisVersion"  Height="30" Padding="0,5,0,0" MinWidth="100" MaxWidth="400" IsEditable="false"
+                              SelectionChanged="EnablePathCheck"
+                              HorizontalAlignment="Left" VerticalAlignment="Center"  
+                            Grid.Column="1"
+                            Grid.Row="3" AutomationProperties.IsRequiredForForm="True">
+                    </ComboBox>
+                    <ComboBox x:Name="TextDBType"  Height="30" Padding="0,5,0,0" MinWidth="100" MaxWidth="400" IsEditable="false" SelectionChanged="EnableScriptChange"
+                              HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="1" Margin="118,0,0,0" Grid.Row="3">
+                    </ComboBox>
+                    <Button ToolTip="Get BDs from the Artifactory" x:Name="btnInstalDB" IsDefault="True"  Margin="10,0,0,0" IsEnabled="False"
+                        Style="{StaticResource toolbarButton}"  Click="btnbtnInstalDB_Click" 
+                            Grid.Column="2"
+                            Grid.Row="3"  
+                            >
+                        <StackPanel Orientation="Horizontal" Style="{StaticResource toolbarButtonStackPanel}">
+                            <Image Source="pack://application:,,,/WPF.PSE.Common;component/Images/DBAdded.png"
+                                   Style="{StaticResource toolbarImage}" />
+                            <TextBlock Text="Install Databases" />
+                        </StackPanel>
+                    </Button>
+                    <Button ToolTip="Update Registry For correct DB version" x:Name="btnUpdateReg" IsDefault="True"  Margin="10,0,0,0" IsEnabled="False"
+                        Style="{StaticResource toolbarButton}"  Click="btnUpdateReg_Click" 
+                            Grid.Column="2"
+                            Grid.Row="4" >
+                        <StackPanel Orientation="Horizontal" Style="{StaticResource toolbarButtonStackPanel}">
+                            <Image Source="pack://application:,,,/WPF.PSE.Common;component/Images/Reg.png"
+                                   Style="{StaticResource toolbarImage}" />
+                            <TextBlock Text="Update Reg" />
+                        </StackPanel>
+                    </Button>
+                    <Label  Height="30" Padding="0,5,0,0" 
+                               x:Name="LabelReplaceText" FontWeight="Bold"
+                               HorizontalAlignment="Left" VerticalAlignment="Center"
+                             Grid.Column="0"
+                            Grid.Row="4" Content="CODIS Project Path"/>
+                    <ComboBox Height="30" Padding="0,5,0,0" MinWidth="1015" IsEnabled="False"
+                               x:Name="TextProjectPathSelected"  Background="Gray"
+                               HorizontalAlignment="Left" VerticalAlignment="Center"
+                             Grid.Column="1"
+                            Grid.Row="4">
+                        <ComboBoxItem></ComboBoxItem>
+                    </ComboBox>
+                    <Button ToolTip="Path Check" x:Name="btnEnablePathCheck" IsDefault="True"  Margin="5,0,5,0"
+                        Style="{StaticResource toolbarButton}" Click="btnOpenFolder_Click" IsEnabled="False"   Grid.Column="3"
+                            Grid.Row="4">
+                        <StackPanel Orientation="Horizontal" Style="{StaticResource toolbarButtonStackPanel}">
+                            <Image Source="pack://application:,,,/WPF.PSE.Common;component/Images/Folder_48.png"
+                                   Style="{StaticResource toolbarImage}" />
+                            <TextBlock Text="Verify Folder" />
+                        </StackPanel>
+                    </Button>
+                    <Label  Height="30" Padding="0,5,0,0" 
+                                FontWeight="Bold"
+                               HorizontalAlignment="Left" VerticalAlignment="Center"
+                             Grid.Column="0"
+                            Grid.Row="5" Content="Visual Studio Version" Margin="5,0,0,0"/>
+                    <ComboBox x:Name="TextVSVersion"  Height="30" Padding="0,5,0,0" MinWidth="180" MaxWidth="800" IsEditable="False" SelectionChanged="EnableScriptChange"
+                              HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="1" Margin="0,0,0,0" Grid.Row="5">
+                    </ComboBox>
+                    <Button ToolTip="Compile project in VS" x:Name="CompileVS" IsDefault="True"  Margin="15,0,0,0" Width="150"
+                        Style="{StaticResource toolbarButton}" Click="btnCompileVS_Click" IsEnabled="false" Grid.Column="1"
+                            Grid.Row="5">
+                        <StackPanel Orientation="Horizontal" Style="{StaticResource toolbarButtonStackPanel}">
+                            <Image Source="pack://application:,,,/WPF.PSE.Common;component/Images/VS.png"
+                                   Style="{StaticResource toolbarImage}" />
+                            <TextBlock Text="Compile latest ver." />
+                        </StackPanel>
+                    </Button>
+                    <Button ToolTip="Clean and Compile project in VS" x:Name="CompileCleanVS" IsDefault="True"  Margin="350,0,0,0" Width="150"
+                        Style="{StaticResource toolbarButton}" Click="btnCompileCleanVS_Click" IsEnabled="false" Grid.Column="1"
+                            Grid.Row="5">
+                        <StackPanel Orientation="Horizontal" Style="{StaticResource toolbarButtonStackPanel}">
+                            <Image Source="pack://application:,,,/WPF.PSE.Common;component/Images/VS.png"
+                                   Style="{StaticResource toolbarImage}" />
+                            <TextBlock Text="Clean + Compile" />
+                        </StackPanel>
+                    </Button>
+                    <Button ToolTip="Launch project in VS" x:Name="btnLaunchVS" IsDefault="True"  Margin="10,0,0,0"
+                        Style="{StaticResource toolbarButton}" Click="btnLaunchVS_Click" IsEnabled="True" Grid.Column="2"
+                            Grid.Row="5">
+                        <StackPanel Orientation="Horizontal" Style="{StaticResource toolbarButtonStackPanel}">
+                            <Image Source="pack://application:,,,/WPF.PSE.Common;component/Images/VS.png"
+                                   Style="{StaticResource toolbarImage}" />
+                            <TextBlock Text="Launch Solusion" />
+                        </StackPanel>
+                    </Button>
+                    <Button ToolTip="Launch Test Complete" x:Name="btnLaunchTc" IsDefault="True"  Margin="3,0,0,0" Width="145"
+                        Style="{StaticResource toolbarButton}" Click="btnLaunchTc_Click" IsEnabled="True" Grid.Column="3"
+                            Grid.Row="5">
+                        <StackPanel Orientation="Horizontal" Style="{StaticResource toolbarButtonStackPanel}">
+                            <Image Source="pack://application:,,,/WPF.PSE.Common;component/Images/Tc.png"
+                                   Style="{StaticResource toolbarImage}" />
+                            <TextBlock Text="TestComplete" />
+                        </StackPanel>
+                    </Button> 
+                </Grid>
+            </WrapPanel>
+
+            <WrapPanel HorizontalAlignment="Stretch" DockPanel.Dock="Top" Margin="0,0,0,10" Width="Auto" Background="#9F9C81">
+                <Grid MinWidth="920">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="150" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="155" />
+                        <ColumnDefinition Width="155" />
+                    </Grid.ColumnDefinitions>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="30"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock  Text="IS Project Path" Height="30" Padding="0,5,0,0"
+                               x:Name="lbISLocation" FontWeight="Bold"
+                               HorizontalAlignment="Left" VerticalAlignment="Center"
+                            Grid.Column="0"
+                            Grid.Row="1" />
+                    <ComboBox Height="30" Padding="0,5,0,0" MinWidth="1015" IsEnabled="False"
+                               x:Name="ISPathSelected"  Background="Gray"
+                               HorizontalAlignment="Left" VerticalAlignment="Center"
+                             Grid.Column="1"
+                            Grid.Row="1">
+                        <ComboBoxItem></ComboBoxItem>
+                    </ComboBox>
+                    <Button ToolTip="Setup Local IS" x:Name="btnConfigIS" IsDefault="True"  Margin="10,0,0,0"
+                        Style="{StaticResource toolbarButton}" Click="btnLaunchVS_Click" IsEnabled="True" Grid.Column="2"
+                            Grid.Row="1">
+                        <StackPanel Orientation="Horizontal" Style="{StaticResource toolbarButtonStackPanel}">
+                            <Image Source="pack://application:,,,/WPF.PSE.Common;component/Images/VS.png"
+                                   Style="{StaticResource toolbarImage}" />
+                            <TextBlock Text="Setup Local IS" />
+                        </StackPanel>
+                    </Button>
+                    <Button ToolTip="Reset Local IS" x:Name="btnResetConfigIS" IsDefault="True"  Margin="10,0,0,0"
+                        Style="{StaticResource toolbarButton}" Click="btnLaunchVS_Click" IsEnabled="True" Grid.Column="3"
+                            Grid.Row="1">
+                        <StackPanel Orientation="Horizontal" Style="{StaticResource toolbarButtonStackPanel}">
+                            <Image Source="pack://application:,,,/WPF.PSE.Common;component/Images/VS.png"
+                                   Style="{StaticResource toolbarImage}" />
+                            <TextBlock Text="Reset Local IS" />
+                        </StackPanel>
+                    </Button>
+                    <Button ToolTip="Launch Local IS" x:Name="btnRunIS" IsDefault="True"  Margin="10,0,0,0"
+                        Style="{StaticResource toolbarButton}" Click="btnLaunchVS_Click" IsEnabled="True" Grid.Column="2"
+                            Grid.Row="2">
+                        <StackPanel Orientation="Horizontal" Style="{StaticResource toolbarButtonStackPanel}">
+                            <Image Source="pack://application:,,,/WPF.PSE.Common;component/Images/VS.png"
+                                   Style="{StaticResource toolbarImage}" />
+                            <TextBlock Text="Launch Local IS" />
+                        </StackPanel>
+                    </Button>
+                </Grid>
+            </WrapPanel>
+            <WrapPanel HorizontalAlignment="Stretch" DockPanel.Dock="Top" Margin="0,0,0,10" Width="Auto" Background="#9F9C81">
+                <Grid MinWidth="920">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="150" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="155" />
+                        <ColumnDefinition Width="155" />
+                    </Grid.ColumnDefinitions>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="30"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock  Text="Rapid Project Path" Height="30" Padding="0,5,0,0"
+                               x:Name="lbRapidLocation" FontWeight="Bold"
+                               HorizontalAlignment="Left" VerticalAlignment="Center"
+                            Grid.Column="0"
+                            Grid.Row="1" />
+                    <ComboBox Height="30" Padding="0,5,0,0" MinWidth="1015" IsEnabled="False"
+                               x:Name="RapidPathSelected"  Background="Gray"
+                               HorizontalAlignment="Left" VerticalAlignment="Center"
+                             Grid.Column="1"
+                            Grid.Row="1">
+                        <ComboBoxItem></ComboBoxItem>
+                    </ComboBox>
+                    <Button ToolTip="Setup Rapid Client" x:Name="btnConfigRapid" IsDefault="True"  Margin="10,0,0,0"
+                        Style="{StaticResource toolbarButton}" Click="btnLaunchVS_Click" IsEnabled="True" Grid.Column="2"
+                            Grid.Row="1">
+                        <StackPanel Orientation="Horizontal" Style="{StaticResource toolbarButtonStackPanel}">
+                            <Image Source="pack://application:,,,/WPF.PSE.Common;component/Images/VS.png"
+                                   Style="{StaticResource toolbarImage}" />
+                            <TextBlock Text="Setup Rapid Client" />
+                        </StackPanel>
+                    </Button>
+                    <Button ToolTip="Reset Rapid Client" x:Name="btnResetConfigRapid" IsDefault="True"  Margin="10,0,0,0"
+                        Style="{StaticResource toolbarButton}" Click="btnLaunchVS_Click" IsEnabled="True" Grid.Column="3"
+                            Grid.Row="1">
+                        <StackPanel Orientation="Horizontal" Style="{StaticResource toolbarButtonStackPanel}">
+                            <Image Source="pack://application:,,,/WPF.PSE.Common;component/Images/VS.png"
+                                   Style="{StaticResource toolbarImage}" />
+                            <TextBlock Text="Reset Rapid Client" />
+                        </StackPanel>
+                    </Button>
+                    <Button ToolTip="Launch Rapid Client" x:Name="btnRunRapid" IsDefault="True"  Margin="10,0,0,0"
+                        Style="{StaticResource toolbarButton}" Click="btnLaunchVS_Click" IsEnabled="True" Grid.Column="2"
+                            Grid.Row="2">
+                        <StackPanel Orientation="Horizontal" Style="{StaticResource toolbarButtonStackPanel}">
+                            <Image Source="pack://application:,,,/WPF.PSE.Common;component/Images/VS.png"
+                                   Style="{StaticResource toolbarImage}" />
+                            <TextBlock Text="Launch Rapid Client" />
+                        </StackPanel>
+                    </Button>
+                </Grid>
+            </WrapPanel>
+            <WrapPanel HorizontalAlignment="Stretch" DockPanel.Dock="Top" Margin="0,0,0,10" Width="Auto" Background="#9F9C81">
+                <Grid MinWidth="920">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="150" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="155" />
+                        <ColumnDefinition Width="155" />
+                    </Grid.ColumnDefinitions>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="2"/>
+                        <RowDefinition Height="40"/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock  Grid.Column="0" FontWeight="Bold" Foreground="DarkBlue" FontSize="16"
+                            Grid.Row="0">Note:</TextBlock>
+                    <TextBlock  Grid.Column="1" FontSize="14" TextWrapping="Wrap" Foreground="DarkBlue"
+                            Grid.Row="0" Name="TxtStatus"> Before starting to switch to a new environment, you might need to do 3 steps below:<LineBreak/>
+                        1- Get the CODIS version you want from CODISTFS<LineBreak/>
+                        2- Close any instance of MS Visual Studio<LineBreak/>
+                        3- Verify the path of MS Visual Studio executable file (devenv.exe) for each version installed in your computer, so the CODIS branch can be launched direcly from here.
+                    </TextBlock>
+                    <TextBlock  Grid.Column="0" FontWeight="Bold" Foreground="DarkBlue" 
+                            Grid.Row="1">Last Branch Used:</TextBlock>
+                    <TextBlock  Grid.Column="1" FontWeight="Bold" Foreground="DarkBlue" FontSize="16"
+                            Grid.Row="1" Name="TxtLastAccessEnvironment"> CODIS 13</TextBlock>
+                    <TextBlock  Grid.Column="0" FontWeight="Bold" Foreground="DarkBlue"
+                            Grid.Row="2">Favorite DB Script:</TextBlock>
+                    <ComboBox Height="30" Padding="0,5,0,0" MinWidth="480" IsEditable="False" 
+                               x:Name="DBCommonScript" SelectionChanged="DisplaySQLText_Click" 
+                               HorizontalAlignment="Left" VerticalAlignment="Center"
+                             Grid.Column="1"
+                            Grid.Row="2">
+                    </ComboBox>
+                    <Button ToolTip="Run SQL" x:Name="btnLaunchSQL" IsDefault="True"  Margin="5,0,0,0"
+                        Style="{StaticResource toolbarButton}" Click="btnLaunchSQL_Click" IsEnabled="True" Grid.Column="2"
+                            Grid.Row="2">
+                        <StackPanel Orientation="Horizontal" Style="{StaticResource toolbarButtonStackPanel}">
+                            <Image Source="pack://application:,,,/WPF.PSE.Common;component/Images/Run.png"
+                                   Style="{StaticResource toolbarImage}" />
+                            <TextBlock Text="Exe SQL" />
+                        </StackPanel>
+                    </Button>
+                    <TextBlock Grid.Column="1" Grid.ColumnSpan="1" 
+                               TextWrapping="Wrap" Margin="5, 5, 5, 5" Foreground="Blue"
+                               FontSize="14"
+                            Grid.Row="3">SQL Text below can be modified to fit your needs:</TextBlock>
+                    <TextBlock Name="txtSQLScript" Grid.Column="1" Grid.ColumnSpan="3" 
+                               TextWrapping="Wrap" Margin="5, 5, 5, 5" Foreground="DarkBlue"
+                               FontSize="16"
+                            Grid.Row="4"></TextBlock>
+                    <Button ToolTip="Copy this SQL" x:Name="btnCopySQL" IsDefault="True"  Margin="5,0,5,0" VerticalAlignment="Top" IsEnabled="False"
+                        Style="{StaticResource toolbarButton}" Click="btnCopySQL_Click" Grid.Column="3"
+                            Grid.Row="2">
+                        <StackPanel Orientation="Horizontal" Style="{StaticResource toolbarButtonStackPanel}">
+                            <Image Source="pack://application:,,,/WPF.PSE.Common;component/Images/Copy_48.png"
+                                   Style="{StaticResource toolbarImage}" />
+                            <TextBlock Text="Copy this SQL" />
+                        </StackPanel>
+                    </Button>
+                    <Grid Background="Red" Grid.Row="5"/>
+                    <Grid Background="Red" Grid.Row="5" Grid.Column="1"/>
+                    <Grid Background="Red" Grid.Row="5" Grid.Column="2"/>
+                    <Grid Background="Red" Grid.Row="5" Grid.Column="3"/>
+                    <Button ToolTip="Restore Default setting" x:Name="btnRestoreDefault" IsDefault="True"  Margin="0,10,0,0"
+                        Style="{StaticResource toolbarButton}" Click="btnbtnRestoreDefault_Click" IsEnabled="True"   Grid.Column="0"
+                            Grid.Row="6">
+                        <StackPanel Orientation="Horizontal" Style="{StaticResource toolbarButtonStackPanel}">
+                            <Image Source="pack://application:,,,/WPF.PSE.Common;component/Images/Trash_Black.png"
+                                   Style="{StaticResource toolbarImage}" />
+                            <TextBlock Text="Restore Default" />
+                        </StackPanel>
+                    </Button>
+                    <Button ToolTip="Edit Config" x:Name="btnModifyVSPath" IsDefault="True"  Margin="0,10,0,0"
+                        Style="{StaticResource toolbarButton}" Click="btnModifyVSPath_Click" IsEnabled="True"   Grid.Column="2"
+                            Grid.Row="6">
+                        <StackPanel Orientation="Horizontal" Style="{StaticResource toolbarButtonStackPanel}">
+                            <Image Source="pack://application:,,,/WPF.PSE.Common;component/Images/Edit_Black.png"
+                                   Style="{StaticResource toolbarImage}" />
+                            <TextBlock Text="Configuration" />
+                        </StackPanel>
+                    </Button>
+                    <Button ToolTip="Reload Screen with updated data" x:Name="btnReload" IsDefault="True"  Margin="5,10,5,0" VerticalAlignment="Top"
+                        Style="{StaticResource toolbarButton}" Click="btnReload_Click" IsEnabled="True" Grid.Column="3"
+                            Grid.Row="6">
+                        <StackPanel Orientation="Horizontal" Style="{StaticResource toolbarButtonStackPanel}">
+                            <Image Source="pack://application:,,,/WPF.PSE.Common;component/Images/Refresh.png"
+                                   Style="{StaticResource toolbarImage}" />
+                            <TextBlock Text="Reload Config" />
+                        </StackPanel>
+                    </Button>
+                </Grid>
+            </WrapPanel>
+        </DockPanel>
+    </Border>
+</UserControl>

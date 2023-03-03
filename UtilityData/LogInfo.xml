@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<EventLogInfo>
+  <LogAvailable>
+    <LogId>0</LogId>
+    <LogName>All</LogName>
+    <DefaultMaxReturnRow>100</DefaultMaxReturnRow>
+    <EventTypeDefault>Error</EventTypeDefault>
+  </LogAvailable>
+  <LogAvailable>
+    <LogId>1</LogId>
+    <LogName>Application</LogName>
+    <DefaultMaxReturnRow>100</DefaultMaxReturnRow>
+    <EventTypeDefault>Information</EventTypeDefault>
+  </LogAvailable>
+  <LogAvailable>
+    <LogId>2</LogId>
+    <LogName>CODIS</LogName>
+    <DefaultMaxReturnRow>100</DefaultMaxReturnRow>
+    <EventTypeDefault>Error</EventTypeDefault>
+  </LogAvailable>
+  <LogAvailable>
+    <LogId>3</LogId>
+    <LogName>CODIS Messaging</LogName>
+    <DefaultMaxReturnRow>100</DefaultMaxReturnRow>
+    <EventTypeDefault>Error</EventTypeDefault>
+  </LogAvailable>
+  <LogAvailable>
+    <LogId>4</LogId>
+    <LogName>NGISS</LogName>
+    <DefaultMaxReturnRow>100</DefaultMaxReturnRow>
+    <EventTypeDefault>Error</EventTypeDefault>
+  </LogAvailable>
+  <LogAvailable>
+    <LogId>5</LogId>
+    <LogName>Rapid</LogName>
+    <DefaultMaxReturnRow>100</DefaultMaxReturnRow>
+    <EventTypeDefault>Error</EventTypeDefault>
+  </LogAvailable>
+  <LogAvailable>
+    <LogId>6</LogId>
+    <LogName>IIS</LogName>
+    <DefaultMaxReturnRow>100</DefaultMaxReturnRow>
+    <EventTypeDefault>Error</EventTypeDefault>
+  </LogAvailable>
+</EventLogInfo>

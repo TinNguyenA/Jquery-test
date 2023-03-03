@@ -1,0 +1,80 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<PSCommands>
+  <PSCommand type="EventLog">
+    <CommandId>1</CommandId>
+    <CommandName>GetWinEvent.ps1</CommandName>
+    <Description>Load Event View Data</Description>
+  </PSCommand> 
+  <PSCommand type="Jobs">
+    <CommandId>3</CommandId>
+    <CommandName>restoreCODISDatabase.ps1</CommandName>
+    <Description>AT- Restore  DCFBIWAD1 DBs</Description>
+  </PSCommand>
+  <PSCommand type="Jobs">
+    <CommandId>3.1</CommandId>
+    <CommandName>restoreCRE_DB.ps1</CommandName>
+    <Description>AT- Restore  CRE DB</Description>
+  </PSCommand>
+  <PSCommand type="Jobs">
+    <CommandId>3.2</CommandId>
+    <CommandName>restoreLDIS_DB.ps1</CommandName>
+    <Description>AT- Restore DCFBIWAD7 DBs</Description>
+  </PSCommand>
+  <PSCommand type="Jobs">
+    <CommandId>3.3</CommandId>
+    <CommandName>restorePrunn_DB.ps1</CommandName>
+    <Description>AT- Restore ESNESTADO DB</Description>
+  </PSCommand>
+  
+  <PSCommand type="Jobs">
+    <CommandId>3.4</CommandId>
+    <CommandName>restoreCA034035.ps1</CommandName>
+    <Description>AT- Restore CA034035Y DBs</Description>
+  </PSCommand>
+  <PSCommand type="Jobs">
+    <CommandId>3.5</CommandId>
+    <CommandName>restoreDCFBINDIS.ps1</CommandName>
+    <Description>AT- Restore DCFBINDIS DBs</Description>
+  </PSCommand>
+  <PSCommand type="Jobs">
+    <CommandId>3.6</CommandId>
+    <CommandName>restoreLDISNewInst.ps1</CommandName>
+    <Description>AT- Restore NewInstall DBs</Description>
+  </PSCommand>
+
+  <PSCommand type="DevTool">
+    <CommandId>4</CommandId>
+    <CommandName>Env.ps1</CommandName>
+    <Description>CODIS Environment Variable</Description>
+  </PSCommand>
+  <PSCommand type="Jobs">
+    <CommandId>5</CommandId>
+    <CommandName>StartServices.ps1</CommandName>
+    <Description>Start CAS, NGISS</Description>
+  </PSCommand>
+  <PSCommand type="DevTool">
+    <CommandId>7</CommandId>
+    <CommandName>CreateCodisServices.ps1</CommandName>
+    <Description>Create CAS, NGISS</Description>
+  </PSCommand>  
+  <PSCommand type="Jobs">
+    <CommandId>8</CommandId>
+    <CommandName>StopServices.ps1</CommandName>
+    <Description>Stop CAS, NGISS</Description>
+  </PSCommand>
+  <PSCommand type="ReadCommand">
+    <CommandId>9</CommandId>
+    <CommandName>CheckServices.ps1</CommandName>
+    <Description>Check Services CAS, NGISS</Description>
+  </PSCommand>
+  <PSCommand type="ReadCommand">
+    <CommandId>10</CommandId>
+    <CommandName>CODIS_REG_Check.ps1</CommandName>
+    <Description>Check CODIS Registry Setting</Description>
+  </PSCommand>
+  <PSCommand type="Clear Log">
+    <CommandId>11</CommandId>
+    <CommandName>ClearEventlog.ps1</CommandName>
+    <Description>Clear Event log Data</Description>
+  </PSCommand>
+</PSCommands>

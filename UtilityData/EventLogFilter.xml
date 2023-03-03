@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Events>
+  <EventLogFilter>
+    <FilterId>1</FilterId>
+    <EventsType>All</EventsType>
+    <FilterName>Log Event</FilterName>
+  </EventLogFilter>
+  <EventLogFilter>
+    <FilterId>2</FilterId>
+    <EventsType>Error</EventsType>
+    <FilterName>Log Event</FilterName>
+  </EventLogFilter>
+  <EventLogFilter>
+    <FilterId>4</FilterId>
+    <EventsType>Information</EventsType>
+    <FilterName>Log Event</FilterName>
+  </EventLogFilter>
+  <EventLogFilter>
+    <FilterId>3</FilterId>
+    <EventsType>Warning</EventsType>
+    <FilterName>Log Event</FilterName>
+  </EventLogFilter>
+</Events>

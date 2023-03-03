@@ -1,0 +1,66 @@
+<?xml version="1.0"?>
+<ArrayOfFileManagerData>
+	<FileManagerData>
+		<Description />
+		<HistSynID>0</HistSynID>
+		<HistSource />
+		<HistDest />
+		<FileType />
+		<FileTypeExcept />
+		<insertedDT>05/09/2005</insertedDT>
+	</FileManagerData>
+	<FileManagerData>
+		<Description>checkin offline IP Proj </Description>
+		<HistSynID>1</HistSynID>
+		<HistSource>C:\Proj\R\CODIS\Trunk\Source\Tools\WPF.PSEmbedding</HistSource>
+		<HistDest>C:\Users\tin.nguyen\OneDrive\HomeTool\IP</HistDest>
+		<FileType>*</FileType>
+		<FileTypeExcept>.vspscc .cache .dll .pdb</FileTypeExcept>
+		<insertedDT>12/22/2021 4:00:50 PM</insertedDT>
+	</FileManagerData>
+	<FileManagerData>
+		<Description>Share IP proj</Description>
+		<HistSynID>2</HistSynID>
+		<HistSource>C:\Proj\R\CODIS\Trunk\Source\Tools\WPF.PSEmbedding\WPF.Sample\bin\Debug</HistSource>
+		<HistDest>T:\Tin.Nguyen\IPProject</HistDest>
+		<FileType>*</FileType>
+		<FileTypeExcept>.vspscc .cache .pdb</FileTypeExcept>
+		<insertedDT>12/21/2021 8:32:36 AM</insertedDT>
+	</FileManagerData>
+	<FileManagerData>
+		<Description>Deploy IP proj</Description>
+		<HistSynID>2.1</HistSynID>
+		<HistSource>C:\Proj\R\CODIS\Trunk\Source\Tools\WPF.PSEmbedding\WPF.Sample\bin\Debug</HistSource>
+		<HistDest>C:\Proj\Ip</HistDest>
+		<FileType>*</FileType>
+		<FileTypeExcept>.vspscc .cache .pdb</FileTypeExcept>
+		<insertedDT>12/22/2021 8:01:29 AM</insertedDT>
+	</FileManagerData>
+	<FileManagerData>
+		<Description>Get Current Report to Local</Description>
+		<HistSynID>3</HistSynID>
+		<HistSource>\\FBI1ICASP31\d$\TeamCity\BuildAgent\work\specflow\Artifacts\NUnit</HistSource>
+		<HistDest>C:\Proj\R\CODIS\Trunk\Source\Tools\ATReportGenerator\Test</HistDest>
+		<FileType>*</FileType>
+		<FileTypeExcept />
+		<insertedDT>12/21/2021 8:32:36 AM</insertedDT>
+	</FileManagerData>
+	<FileManagerData>
+		<Description>Release new report version to Report folder</Description>
+		<HistSynID>4</HistSynID>
+		<HistSource>C:\Proj\R\CODIS\Trunk\Source\Tools\ATReportGenerator\bin\Debug</HistSource>
+		<HistDest>\\FBI1ICASP49\d$\TeamCity\Report\GeneratorManually</HistDest>
+		<FileType>*</FileType>
+		<FileTypeExcept />
+		<insertedDT>12/21/2021 8:32:36 AM</insertedDT>
+	</FileManagerData>
+	<FileManagerData>
+		<Description>Test Data </Description>
+		<HistSynID>5</HistSynID>
+		<HistSource>C:\CODIS1\MHS</HistSource>
+		<HistDest>C:\temp</HistDest>
+		<FileType>*</FileType>
+		<FileTypeExcept>.vspscc .cache .dll .pdb</FileTypeExcept>
+		<insertedDT>12/22/2021 4:00:50 PM</insertedDT>
+	</FileManagerData>
+</ArrayOfFileManagerData> 
